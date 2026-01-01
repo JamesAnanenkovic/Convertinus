@@ -12,3 +12,6 @@ Limitations:
 
 Build:
 g++ convertinus.cpp -o convertinus
+
+License:
+MIT
