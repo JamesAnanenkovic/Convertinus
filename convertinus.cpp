@@ -7,6 +7,19 @@ using namespace std;
 int choose;
 int output;
 
+
+// - - - Arayüz İşlemleri - - -
+
+void clearscreen(){
+	
+	#ifdef _WIN32
+		system("cls");
+	#else
+		system("clear");
+	#endif
+	
+	}
+
 // - - - Yardımcı işlemler - - -
 
 string sekizle(const string& bin){
@@ -98,11 +111,16 @@ long long xtoii_s8(const string& bin){
 int main(){
 	
 	while (true){
+		
+		clearscreen();
+		
 		cout << "|- - - - - - - - CONVERTINUS - - - - - - - -|\n";
 		cout << "|                                           |\n";
 		cout << "|- UNSIGNED - - - - - - - = - - - - SIGNED -|\n";
 		cout << "|  |1|        binary  -> decimal       |3|  |\n";
 		cout << "|  |2|        decimal -> binary             |\n";
+		cout << "|                                           |\n";
+		cout << "|                Exit: |0|                  |\n";
 		cout << "|                                           |\n";
 		cout << "select progress>>>";	
 		cin >> choose;
@@ -149,6 +167,12 @@ int main(){
 		else if (choose == 0) {
 			return 0;
 			}
+			
+		cout << endl << "Press Enter to continue... ";
+		cin.ignore();
+		cin.get();
+		
+		
 		}
 		return 0;
 }
