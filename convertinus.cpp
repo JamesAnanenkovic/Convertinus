@@ -1,4 +1,4 @@
-//convertinus v0.1 by jamesananenkovic, on 1.1.2026
+//convertinus v0.2.2 by jamesananenkovic, on 1.1.2026
 //simple conversation software for binary and decimal integers
 
 #include <iostream>
@@ -92,7 +92,7 @@ string iitox(long long decimal) { // binary -> decimal
 	
 // - - - SIGNED değerler ile yapılan işlemler - - -
 
-long long xtoii_s8(const string& bin){
+long long iitox_s8(const string& bin){ // binary to decimal
 	
 	if (bin.size() != 8 )
 		return 0;
@@ -106,6 +106,22 @@ long long xtoii_s8(const string& bin){
 	return static_cast<signed char>(v);
 	
 	}
+	
+string xtoii_s8(long long decimal){ // decimal to binary
+	
+	if (decimal < -128 || decimal > 127)
+		return "ERROR!";
+		
+	unsigned char v = static_cast<unsigned char>(decimal); //2nin tümleyeni yöntemi
+	string out = "";
+	
+	for (int i = 7;i >=0; --i)
+		out += ((v >> i)& 1) ? '1' : '0';
+		
+	return out;
+	
+	}
+
 
 
 int main(){
@@ -118,7 +134,7 @@ int main(){
 		cout << "|                                           |\n";
 		cout << "|- UNSIGNED - - - - - - - = - - - - SIGNED -|\n";
 		cout << "|  |1|        binary  -> decimal       |3|  |\n";
-		cout << "|  |2|        decimal -> binary             |\n";
+		cout << "|  |2|        decimal -> binary        |4|  |\n";
 		cout << "|                                           |\n";
 		cout << "|                Exit: |0|                  |\n";
 		cout << "|                                           |\n";
@@ -157,10 +173,20 @@ int main(){
 				
 			else{
 				
-				long long sonuc = xtoii_s8(deger);
+				long long sonuc = iitox_s8(deger);
 				cout << "(" << sonuc << ")\n";
 				
 				}
+			
+			}
+			
+			
+		else if (choose == 4){
+			
+			long long deger;
+			cin >> deger;
+			string sonuc = xtoii_s8(deger);
+			cout << sonuc << "\n";
 			
 			}
 			
