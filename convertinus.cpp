@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <sstream>
 using namespace std;
 
 int choose;
@@ -95,20 +96,37 @@ string iitox(long long decimal) { // binary -> decimal
 	
 // - - - SIGNED değerler ile yapılan işlemler - - -
 
-long long iitox_s8(const string& bin){ // binary to decimal
-	
-	if (bin.size() != 8 )
-		return 0;
-		
-	unsigned char v = 0;
-	string out =  "";
-	
-	for (char c : bin)
-		v = (v << 1) | (c - '0');
-		
-	return static_cast<signed char>(v);
-	
-	}
+// Genişletilmiş signed decimal -> multi-block binary
+
+long long iitox_s8(string binary) {
+    // '-' ile ayrılmış blokları parçala
+    vector<string> blocks;
+    stringstream ss(binary);
+    string block;
+    while (getline(ss, block, '-')) {
+        blocks.push_back(block);
+    }
+
+    long long result = 0;
+    bool isNegative = (blocks[0][0] == '1'); // MSB işaret biti
+
+    for (size_t i = 0; i < blocks.size(); ++i) {
+        string b = blocks[i];
+        unsigned char val = 0;
+        for (int j = 0; j < 8; ++j) {
+            if (b[j] == '1') val |= (1 << (7 - j));
+        }
+        result = (result << 8) | val;
+    }
+
+    if (isNegative) {
+        // iki tamamlayanı geri al
+        size_t totalBits = blocks.size() * 8;
+        result -= (1LL << totalBits);
+    }
+
+    return result;
+}
 	
 
 string xtoii_s8(long long decimal){
@@ -186,21 +204,9 @@ int main(){
 			string deger;
 			cin >> deger;
 			
-			if(deger.size() !=8){
-				
-				cout << "ERROR! INPUT MUST BE 8 BIT WIDE!\n";
-				
-				}
-				
-			else{
-				
-				long long sonuc = iitox_s8(deger);
-				cout << "(" << sonuc << ")\n";
-				
-				}
-			
+			string sonuc = to_string(iitox_s8(deger));
+			cout << "(" << sonuc << ")\n";	
 			}
-			
 			
 		else if (choose == 4){
 			
