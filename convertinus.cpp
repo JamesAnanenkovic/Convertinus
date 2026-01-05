@@ -1,4 +1,4 @@
-//convertinus v0.2.2 by jamesananenkovic, on 1.1.2026
+//convertinus v0.2.4 by jamesananenkovic, on 4.1.2026
 //simple conversation software for binary and decimal integers
 
 #include <iostream>
