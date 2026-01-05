@@ -2,6 +2,9 @@
 //simple conversation software for binary and decimal integers
 
 #include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 int choose;
@@ -107,21 +110,39 @@ long long iitox_s8(const string& bin){ // binary to decimal
 	
 	}
 	
-string xtoii_s8(long long decimal){ // decimal to binary
-	
-	if (decimal < -128 || decimal > 127)
-		return "ERROR!";
-		
-	unsigned char v = static_cast<unsigned char>(decimal); //2nin tümleyeni yöntemi
-	string out = "";
-	
-	for (int i = 7;i >=0; --i)
-		out += ((v >> i)& 1) ? '1' : '0';
-		
-	return out;
-	
-	}
 
+string xtoii_s8(long long decimal){
+	
+    string out = "";
+    bool isNegative = decimal < 0;
+    unsigned long long num = isNegative ? -decimal : decimal;
+
+    vector<string> blocks;
+
+    // 8-bit bloklar oluştur
+    do {
+        string block = "";
+        
+        for(int i = 0; i < 8; ++i){
+            block = ((num & 1) ? '1' : '0') + block;
+            num >>= 1;
+        }
+        blocks.push_back(block);
+    } while(num > 0);
+
+    reverse(blocks.begin(), blocks.end());
+
+    // blokları stringe ekle
+    for(size_t i = 0; i < blocks.size(); ++i){
+        out += blocks[i];
+        if(i != blocks.size()-1) out += "-";
+    }
+
+    if(isNegative)
+        out = "(- " + out + ")";
+
+    return out;
+}
 
 
 int main(){

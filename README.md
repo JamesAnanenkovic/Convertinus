@@ -1,7 +1,7 @@
-# Convertinus v0.21
+# Convertinus v0.2.3
 
-**Author:** James Ananenkovic  
-**Date:** 2 January 2026  
+**Author & Auditor:** James Ananenkovic  
+**Date:** 5 January 2026  
 **License:** MIT  
 
 ---
@@ -9,7 +9,8 @@
 ## Overview
 
 Convertinus is a simple console-based software for converting integers between binary and decimal formats.  
-v0.2 adds support for **signed 8-bit binary to decimal conversion**.
+v0.2x adds support for **signed 8-bit binary and decimal conversions**.  
+v0.2.3 expands **signed decimal → binary** to support **arbitrarily large signed numbers** with 8-bit block formatting.
 
 ---
 
@@ -19,10 +20,12 @@ v0.2 adds support for **signed 8-bit binary to decimal conversion**.
 - **Binary → Decimal** (arbitrary length, blocks of 8 bits)
 - **Decimal → Binary** (arbitrary length, auto-blocking)
 
-### Signed (8-bit, two's complement)
-- **Binary → Decimal**  
-  - Input must be 8 bits
-  - Negative numbers are displayed in parentheses, e.g., `( -127 )`
-- **Decimal → Binary** (future implementation)
-
----
+### Signed
+- **Binary → Decimal (8-bit)**  
+  - Input must be 8 bits  
+  - Negative numbers are displayed in parentheses, e.g., `( -127 )`  
+  - Uses two’s complement representation
+- **Decimal → Binary (expanded)**  
+  - Supports signed numbers beyond -128 … 127  
+  - Outputs in **8-bit blocks**, e.g., `00000001-10101100`  
+  - Negative numbers are displayed in parentheses, e.g., `(- 00101100)`  
